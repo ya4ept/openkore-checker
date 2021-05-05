@@ -48,13 +48,13 @@ class config {
     char: /^(\d{1,2})?$/,
 
     poseidonServer: /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))?$/,
-    poseidonPort: /^(\d+)?$/,
+    poseidonPort: /^\d*$/,
 
     bindIp: /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))?$/,
     forceMapIP: /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))?$/,
 
     XKore: /^(0|1|2|3)?$/,
-    XKore_port: /^(\d+)?$/,
+    XKore_port: /^\d*$/,
     XKore_dll: /.*/,
     XKore_injectDLL: /^(0|1)?$/,
     XKore_autoAttachIfOneExe: /^(0|1)?$/,
@@ -63,7 +63,7 @@ class config {
     XKore_exeName: /.*/,
 
     XKore_listenIp: /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))?$/,
-    XKore_listenPort: /^(\d+)?$/,
+    XKore_listenPort: /^\d*$/,
     XKore_publicIp: /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))?$/,
     XKore_ID: /.*/,
 
@@ -76,15 +76,14 @@ class config {
 
     macAddress: /^([0-9a-fA-F]{12})?$/,
 
-    pauseCharLogin: /^(0|1)?$/,
-    pauseCharServer: /^(\d+)?$/,
-    pauseMapServer: /^(\d+)?$/,
+    pauseCharLogin: /^(\d+(\.\d+)?)?$/,
+    pauseCharServer: /^(\d+(\.\d+)?)?$/,
+    pauseMapServer: /^(\d+(\.\d+)?)?$/,
     ignoreInvalidLogin: /^(0|1)?$/,
-    secureLogin_requestCode: /^([0-9a-fA-F]{2}\s?)*$/,
 
     whenInGame_requestCashPoints: /^(0|1)?$/,
 
-    message_length_max: /^(\d+)?$/,
+    message_length_max: /^\d*$/,
 
     //alias_
 
@@ -142,23 +141,40 @@ class config {
     attackEquip_shadowArmor: /.*/,
     attackEquip_shadowShoes: /.*/,
     attackEquip_costumeFloor: /.*/,
+
+    autoMakeArrows: /^(0|1)?$/,
+
+    autoRestart: /^\d*$/,
+    autoRestartMin: /^\d*$/,
+    autoRestartSeed: /^\d*$/,
+
+    autoRestartSleep: /^(0|1)?$/,
+    autoSleepMin: /^\d*$/,
+    autoSleepSeed: /^\d*$/,
+
+    autoResponse: /^(0|1)?$/,
+    autoResponseOnHeal: /^(0|1)?$/,
+
+    autoSpell: /^(MG_NAPALMBEAT|Napalm Beat|MG_SOULSTRIKE|Soul Strike|MG_COLDBOLT|Cold Bolt|MG_FROSTDIVER|Frost Diver|MG_FIREBALL|Fire Ball|MG_FIREBOLT|Fire Bolt|MG_LIGHTNINGBOLT|Lightning Bolt)?$/,
+    autoSpell_safe: /^(0|1)?$/,
   };
 
   blocks = {
     autoBreakTime: {
-      name: /^(all|mon|tue|wed|thu|fri|sat|sun)$/,
+      name: /^(all|mon|tue|wed|thu|fri|sat|sun)?$/,
       keys: {
         startTime: /^((([0,1][0-9])|(2[0-3])):[0-5][0-9])?$/,
         stopTime: /^((([0,1][0-9])|(2[0-3])):[0-5][0-9])?$/,
-        disabled: /^(0|1)?$/,
+        disabled: /^(0|1)?$/
       },
     },
     autoConfChange: {
       keys: {
-        minTime: /^((([0,1][0-9])|(2[0-3])):[0-5][0-9])?$/,
-        varTime: /^((([0,1][0-9])|(2[0-3])):[0-5][0-9])?$/,
-        lvl: /^\d*$/,
-        joblvl: /^\d*$/,
+        minTime: /^\d*$/,
+        varTime: /^\d*$/,
+        lvl: /^((-?\d+(?:\.\d+)?)%?\s*(?:-|\.\.)\s*(-?\d+(?:\.\d+)?)%?|(>=?|<=?)?\s*(-?\d+(\.\d+)?)%?)?$/,
+        joblvl: /^((-?\d+(?:\.\d+)?)%?\s*(?:-|\.\.)\s*(-?\d+(?:\.\d+)?)%?|(>=?|<=?)?\s*(-?\d+(\.\d+)?)%?)?$/,
+        isJob: /^(Novice|Swordsman|Mage|Archer|Acolyte|Merchant|Thief|Knight|Priest|Wizard|Blacksmith|Hunter|Assassin|Peco Knight|Crusader|Monk|Sage|Rogue|Alchemist|Bard|Dancer|Peco Crusader|Wedding Suit|Super Novice|Gunslinger|Ninja|Xmas|Summer|High Novice|High Swordsman|High Magician|High Archer|High Acolyte|High Merchant|High Thief|Lord Knight|High Priest|High Wizard|Whitesmith|Sniper|Assassin Cross|Peco Lord Knight|Paladin|Champion|Professor|Stalker|Creator|Clown|Gypsy|Peco Paladin|Baby Novice|Baby Swordsman|Baby Magician|Baby Archer|Baby Acolyte|Baby Merchant|Baby Thief|Baby Knight|Baby Priest|Baby Wizard|Baby Blacksmith|Baby Hunter|Baby Assassin|Baby Peco Knight|Baby Crusader|Baby Monk|Baby Sage|Baby Rogue|Baby Alchemist|Baby Bard|Baby Dancer|Baby Peco Crusader|Super Baby|Taekwon|Star Gladiator|Flying Star Gladiator|Soul Linker|Munak|Death Knight|Dark Collector|Rune Knight|Warlock|Ranger|Arch Bishop|Mechanic|Glt. Cross|Royal Guard|Sorcerer|Minstrel|Wanderer|Sura|Genetic|Shadow Chaser|Baby Rune|Baby Warlock|Baby Ranger|Baby Bishop|Baby Mechanic|Baby Cross|Baby Guard|Baby Sorcerer|Baby Minstrel|Baby Wanderer|Baby Sura|Baby Genetic|Baby Chaser|Kagerou|Oboro|Rebellion|Summoner|Star Emperor|Soul Reaper|Baby Star Emperor|Baby Soul Reaper)?$/,
       },
     },
     monsterSkill: {
