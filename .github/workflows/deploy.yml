@@ -1,0 +1,59 @@
+# workflow syntax           https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+# runs-on                   https://github.com/actions/virtual-environments
+# yarn                      https://github.com/marketplace/actions/github-action-for-yarn
+# FTP-Deploy-Action@4       https://github.com/marketplace/actions/ftp-deploy
+
+on:
+  push:
+    branches:
+      - deploy
+    tags-ignore:
+      - '*'
+  pull_request:
+
+jobs:
+  build:
+  
+    runs-on: ubuntu-latest
+    steps:
+    - name: GIT checkout
+      uses: actions/checkout@v2
+    - name: yarn install
+      uses: borales/actions-yarn@v2.3.0
+      with:
+        cmd: install
+    - name: 🔨 yarn build
+      uses: borales/actions-yarn@v2.3.0
+      with:
+        cmd: build
+    - name: folder preparation
+      shell: bash
+      run: |
+        cp -r ./dist/* ./
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        dry-run: false
+        exclude: .git
+          - .git/**
+          - .github
+          - .github/**
+          - .gitignore
+          - .editorconfig
+          - babel.config.js
+          - dist
+          - dist/**
+          - node_modules
+          - node_modules/**
+          - package.json
+          - public
+          - public/**
+          - src
+          - src/**
+          - README.md
+          - vue.config.js
+          - yarn.lock
+        dangerous-clean-slate: true
