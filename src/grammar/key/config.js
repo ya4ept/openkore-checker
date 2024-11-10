@@ -96,6 +96,11 @@ class config {
     attackAuto_followTarget: /^(0|1)?$/,
     attackAuto_inLockOnly: /^(0|1|2)?$/,
     attackAuto_notInTown: /^(0|1)?$/,
+    attackAuto_notWhile_storageAuto: /^(0|1)?$/,
+    attackAuto_notWhile_buyAuto: /^(0|1)?$/,
+    attackAuto_notWhile_sellAuto: /^(0|1)?$/,
+    attackAuto_considerDamagedAggressive: /^(0|1)?$/,
+    attackBeyondMaxDistance_waitForAgressive: /^(0|1)?$/,
     attackDistance: /^(\d{1,2})?$/,
     attackDistanceAuto: /^(0|1)?$/,
     attackMaxDistance: /^(\d{1,2})?$/,
@@ -109,6 +114,7 @@ class config {
     attackCheckLOS: /^(0|1)?$/,
     attackRouteMaxPathDistance: /^(\d{1,3})?$/,
     attackLooters: /^(0|1)?$/,
+    attackLooters_dist: /^(0|1)?$/,
     attackChangeTarget: /^(0|1)?$/,
     aggressiveAntiKS: /^(0|1)?$/,
 
@@ -145,18 +151,40 @@ class config {
     autoMakeArrows: /^(0|1)?$/,
 
     autoRestart: /^\d*$/,
-    autoRestartMin: /^\d*$/,
-    autoRestartSeed: /^\d*$/,
+    autoRestartMin: /^(\d+(\.\d+)?)?$/,
+    autoRestartSeed: /^(\d+(\.\d+)?)?$/,
 
     autoRestartSleep: /^(0|1)?$/,
-    autoSleepMin: /^\d*$/,
-    autoSleepSeed: /^\d*$/,
+    autoSleepMin: /^(\d+(\.\d+)?)?$/,
+    autoSleepSeed: /^(\d+(\.\d+)?)?$/,
 
     autoResponse: /^(0|1)?$/,
     autoResponseOnHeal: /^(0|1)?$/,
 
-    autoSpell: /^(MG_NAPALMBEAT|Napalm Beat|MG_SOULSTRIKE|Soul Strike|MG_COLDBOLT|Cold Bolt|MG_FROSTDIVER|Frost Diver|MG_FIREBALL|Fire Ball|MG_FIREBOLT|Fire Bolt|MG_LIGHTNINGBOLT|Lightning Bolt)?$/,
+    autoSpell: /^(11|MG_NAPALMBEAT|Napalm Beat|Напалмовый удар|14|MG_COLDBOLT|Cold Bolt|Ледяной заряд|19|MG_FIREBOLT|Fire Bolt|Огненный заряд|20|MG_LIGHTNINGBOLT|Lightning Bolt|Молния|13|MG_SOULSTRIKE|Soul Strike|Призрачный удар|17|MG_FIREBALL|Fire Ball|Огненный шар|15|MG_FROSTDIVER|Frost Diver|Ледяная волна)?$/,
     autoSpell_safe: /^(0|1)?$/,
+    autoPoison: /^(Paralysis|Яд 'Энерво'|Leech End|Яд 'Крудус'|Oblivion Curse|Яд 'Обливио'|Death Hurt|Яд 'Дамнум'|Toxin|Яд 'Делео'|Pyrexia|Яд 'Фебрис'|Magic Mushroom|Яд 'Фунгус'|Venom Bleed|Яд 'Вескор')?$/,
+
+    avoidGM_namePattern: /.*/,
+    avoidGM_near : /^(0|1|2|3|4|5)?$/,
+    avoidGM_near_inTown: /^(0|1)?$/,
+    avoidGM_talk: /^(0|1)?$/,
+    avoidGM_reconnect: /^(\d+(\.\d+)?)?$/,
+    avoidGM_ignoreList: /.*/,
+
+    avoidList: /^(0|1)?$/,
+    avoidList_inLockOnly: /^(0|1)?$/,
+    avoidList_reconnect: /^(\d+(\.\d+)?)?$/,
+    avoidList_ignoreList: /.*/,
+
+    avoidHiddenActors: /^(0|1)?$/,
+    avoidHiddenMonsters: /^(0|1)?$/,
+
+    cachePlayerNames: /^(0|1)?$/,
+    cachePlayerNames_duration: /^(\d+(\.\d+)?)?$/,
+    cachePlayerNames_maxSize: /^\d*$/,
+
+    clientSight: /^\d*$/,
   };
 
   blocks = {
