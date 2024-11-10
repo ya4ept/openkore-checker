@@ -1,7 +1,8 @@
 # workflow syntax           https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 # runs-on                   https://github.com/actions/virtual-environments
-# yarn                      https://github.com/marketplace/actions/github-action-for-yarn
-# FTP-Deploy-Action@4       https://github.com/marketplace/actions/ftp-deploy
+# setup-node@c4             https://github.com/actions/setup-node
+# actions-yarn@v5.0.0       https://github.com/marketplace/actions/github-action-for-yarn
+# FTP-Deploy-Action@v4.3.5  https://github.com/marketplace/actions/ftp-deploy
 
 on:
   push:
@@ -18,6 +19,10 @@ jobs:
     steps:
     - name: GIT checkout
       uses: actions/checkout@v4
+    - name: Set Node.js 16
+      uses: actions/setup-node@v4
+      with:
+        node-version: 16
     - name: yarn install
       uses: borales/actions-yarn@v5.0.0
       with:
@@ -26,34 +31,13 @@ jobs:
       uses: borales/actions-yarn@v5.0.0
       with:
         cmd: build
-    - name: folder preparation
-      shell: bash
-      run: |
-        cp -r ./dist/* ./
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
+        protocol: ftps
         dry-run: false
-        exclude: .git
-          - .git/**
-          - .github
-          - .github/**
-          - .gitignore
-          - .editorconfig
-          - babel.config.js
-          - dist
-          - dist/**
-          - node_modules
-          - node_modules/**
-          - package.json
-          - public
-          - public/**
-          - src
-          - src/**
-          - README.md
-          - vue.config.js
-          - yarn.lock
+        local-dir: dist/
         dangerous-clean-slate: true
